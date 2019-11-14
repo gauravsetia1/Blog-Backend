@@ -1,5 +1,6 @@
 package com.chitkara.blog.controller;
 
+import com.chitkara.blog.exception.ResourceNotFoundException;
 import com.chitkara.blog.model.Blog;
 import com.chitkara.blog.model.Users;
 import com.chitkara.blog.repository.BlogRepo;
@@ -16,7 +17,7 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/blog")
-@CrossOrigin(origins = "http://localhost:4200",allowedHeaders = "*")
+@CrossOrigin(origins = "http://localhost:4200")
 public class BlogController {
 
     @Autowired
@@ -35,6 +36,12 @@ public class BlogController {
         return blogService.addBlogToList(principal, blog);
     }
 
+    @GetMapping("/detail/{id}")
+    public Blog getDetailsById(@PathVariable(value="id")Long id)
+    {
+        return blogRepo.findById(id).orElseThrow(()-> new ResourceNotFoundException("Details","Id",id));
+    }
+
     @GetMapping("/getBlog")
     public List<Blog> getBlog()
     {
@@ -46,9 +53,20 @@ public class BlogController {
         return blogService.show(principal);
     }
 
-    @GetMapping("/deleteBlog/{blogId}")
+    @PostMapping("/deleteBlog/{blogId}")
     public String deleteBlog(@PathVariable("blogId") Long id) {
         return blogService.delete(id);
     }
 
+    @GetMapping("search/{name}")
+    public List<Blog> getSearch(@PathVariable(value = "name")String name)
+    {
+        return blogRepo.findByTitleContaining(name);
+    }
+
+    @GetMapping("search1/{name}")
+    public List<Blog> getSearch1(@PathVariable(value = "name")String name)
+    {
+        return blogRepo.findByBlogContaining(name);
+    }
 }

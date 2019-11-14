@@ -17,7 +17,7 @@ public class Blog {
     private String category;
     private String image;
     private String description;
-    private Date date;
+    private Instant date;
     private String privacy;
     private String blog;
 
@@ -48,10 +48,10 @@ public class Blog {
     public void setDescription(String description) {
         this.description = description;
     }
-    public Date getDate() {
+    public Instant getDate() {
         return date;
     }
-    public void setDate(Date date) {
+    public void setDate(Instant date) {
         this.date = date;
     }
     public Users getUsers() {

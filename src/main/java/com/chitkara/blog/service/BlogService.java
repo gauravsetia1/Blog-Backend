@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.security.Principal;
+import java.time.Instant;
 import java.util.ArrayList;
 import java.util.Optional;
 
@@ -30,14 +31,15 @@ public class BlogService {
     public String addBlogToList(Principal principal, Blog blog) {
         String email = principal.getName();
         Optional<Users> users = usersRepo.findByEmail(email);
+        blog.setDate(Instant.now());
         blog.setUsers(users.get());
         blogRepo.save(blog);
-        return "Blog added/ updated ";
+        return "\"" + "Blog added/ updated " + "\"" ;
     }
 
     @Transactional
     public String delete(Long blogId) {
         blogRepo.deleteById(blogId);
-        return "Blog deleted";
+        return "\"" + "Blog deleted" + "\"";
     }
 }
