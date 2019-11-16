@@ -61,12 +61,7 @@ public class BlogController {
     @GetMapping("search/{name}")
     public List<Blog> getSearch(@PathVariable(value = "name")String name)
     {
-        return blogRepo.findByTitleContaining(name);
-    }
-
-    @GetMapping("search1/{name}")
-    public List<Blog> getSearch1(@PathVariable(value = "name")String name)
-    {
         return blogRepo.findByBlogContaining(name);
     }
+
 }

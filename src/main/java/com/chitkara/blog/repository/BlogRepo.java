@@ -16,7 +16,5 @@ public interface BlogRepo extends JpaRepository<Blog, Long> {
 
     void deleteById(Long id);
 
-    List<Blog> findByTitleContaining(String name);
     List<Blog> findByBlogContaining(String name);
-
 }
